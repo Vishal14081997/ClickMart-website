@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
 import { Outlet } from 'react-router-dom'
+import Topbar from '../components/Topbar'
 
 const DashboardLayout = () => {
     return (
@@ -9,8 +10,13 @@ const DashboardLayout = () => {
                 <div className='w-1/4'>
                     <Sidebar />
                 </div>
-                <div className='3/4'>
-                    <Outlet />
+                <div className='flex-1 p-6'>
+                    <div>
+                        <Topbar />
+                    </div>
+                    <div className='mt-6'>
+                        <Outlet />
+                    </div>
                 </div>
             </div>
         </>

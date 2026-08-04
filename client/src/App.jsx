@@ -9,6 +9,8 @@ import Categories from './pages/Categories'
 import Products from './pages/Products'
 import AgencyList from './pages/AgencyList'
 import Customer from './pages/Customer'
+import CreateCategory from './components/CreateCategory'
+import CreateProduct from './components/CreateProduct'
 
 
 const App = () => {
@@ -30,10 +32,12 @@ const App = () => {
       element:<DashboardLayout/>,
       children:[
         {path:"dashboard" , element:<Dashboard/>},
-        {path:"Categories" , element:<Categories/>},
+        {path:"categories" , element:<Categories/>},
         {path:"products" , element:<Products/>},
         {path:"agency" , element:<AgencyList/>},
-        {path:"Customer" , element:<Customer/>},
+        {path:"customer" , element:<Customer/>},
+        {path:"add-category" ,element:<CreateCategory/>},
+        {path:"add-product" ,element:<CreateProduct/>}
       ]
     }
 
