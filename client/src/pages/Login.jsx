@@ -1,12 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import WelcomePanel from '../components/WelcomePanel'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-hot-toast'
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  })
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    // console.log(e.target.name , e.target.value);
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+  // console.log("formData", formData);
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios.post("http://localhost:3000/auth/login", formData)
+      console.log(res.data);
+
+      toast.success(res.data.message)
+      setFormData({ email: "", password: "" })
+      navigate("/dashboard")
+
+    } catch (error) {
+      console.log(error.response.data.message);
+      toast.error(error.response.data.message)
+    }
+  }
+
   return (
     <>
       <div className="flex bg-secondary">
-
         {/* Left Section */}
         <div className="w-1/2  flex justify-center items-center">
           <WelcomePanel />
@@ -28,8 +57,8 @@ const Login = () => {
               account.
             </p>
 
-            <form className="space-y-5">
-              
+            <form onSubmit={handleLogin} className="space-y-5">
+
               <div>
                 <label className="block mb-2 font-medium text-gray-700">
                   Email Address
@@ -37,6 +66,9 @@ const Login = () => {
 
                 <input
                   type="email"
+                  name='email'
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email"
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
@@ -49,6 +81,9 @@ const Login = () => {
 
                 <input
                   type="password"
+                  name='password'
+                  value={formData.password}
+                  onChange={handleChange}
                   placeholder="Enter your password"
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
@@ -59,13 +94,7 @@ const Login = () => {
                   <input type="checkbox" />
                   Remember Me
                 </label>
-{/* 
-                <Link
-                  to="/forgot-password"
-                  className="text-primary hover:underline"
-                > */}
-                  Forgot Password?
-                {/* </Link> */}
+                Forgot Password?
               </div>
 
               <button

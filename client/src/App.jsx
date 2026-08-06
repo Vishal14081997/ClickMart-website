@@ -11,6 +11,7 @@ import AgencyList from './pages/AgencyList'
 import Customer from './pages/Customer'
 import CreateCategory from './components/CreateCategory'
 import CreateProduct from './components/CreateProduct'
+import {Toaster} from "react-hot-toast"
 
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
 
   return (
     <>
+      <Toaster position='top-right'/>
       <RouterProvider router={router} />
     </>
   )

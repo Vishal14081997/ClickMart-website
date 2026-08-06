@@ -4,8 +4,6 @@ export const signUp = async (req, res) => {
     try {
         const { full_name, email, phone_no, password, userType } = req.body;
 
-        const newUser = await User.create({ full_name, email, phone_no, password, userType })
-
         const user = await User.findOne({ email: email }).select("email full_name")
         // console.log(user);
 
@@ -13,8 +11,10 @@ export const signUp = async (req, res) => {
             return res.status(400).json({ message: "user aleady exists" })
         }
 
+        const newUser = await User.create({ full_name, email, phone_no, password, userType })
+
         res.status(201).json({
-            message: "signUp successfully",
+            message: "signup success",
             data: newUser
         })
 
@@ -38,7 +38,7 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "Invalid password" })
         }
         res.status(200).json({
-            message: "login successfully",
+            message: "login success",
             data: user
         })
 

@@ -1,28 +1,22 @@
 import React, { useState } from 'react'
 import WelcomePanel from '../components/WelcomePanel'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from "react-hot-toast"
 import axios from "axios"
 
 const Signup = () => {
-    const [formData, SetFormData] = useState({
+    const [formData, setFormData] = useState({
         full_name: "",
         email: "",
         phone_no: "",
         password: "",
         userType: ""
     })
-
-    // const handleChange = (e) => {
-    //     SetFormData((prev) => ({
-    //         ...prev,
-    //         [e.target.name]: e.target.value,
-    //     }));
-    // };
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         // console.log(e.target.name, e.target.value);
-        SetFormData({ ...formData, [e.target.name]: e.target.value })
-
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
     console.log(formData);
 
@@ -31,8 +25,18 @@ const Signup = () => {
         try {
             const res = await axios.post("http://localhost:3000/auth/signup", formData)
             console.log(res.data);
+            toast.success(res.data.message)
+            setFormData({
+                full_name: "",
+                email: "",
+                phone_no: "",
+                password: "",
+                userType: ""
+            })
+            navigate("/login")
         } catch (error) {
-            console.log(error.response?.data);
+            console.log(error.response.data);
+            toast.error(error.response.data.message)
         }
     }
 
@@ -100,9 +104,10 @@ const Signup = () => {
                                 onChange={handleChange}
                                 className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
                             >
-                                <option>Admin</option>
+                                <option value="">Select User Type</option>
+                                <option >Admin</option>
+                                <option >Agency</option>
                                 <option>Customer</option>
-                                <option>Agency</option>
                             </select>
 
                             <button

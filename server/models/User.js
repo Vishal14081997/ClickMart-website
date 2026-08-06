@@ -10,7 +10,6 @@ const UserSchema = new mongoose.Schema({
     },
     phone_no: {
         type: String,
-        unique: true
     },
     password: {
         type: String
@@ -28,6 +27,8 @@ const UserSchema = new mongoose.Schema({
         enum: ["Active", "Inactive"],
         default: "Active"
     }
-});
+},
+    { timestamps: true }
+);
 const User = mongoose.model("user", UserSchema)
 export default User;
