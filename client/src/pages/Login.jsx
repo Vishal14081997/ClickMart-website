@@ -25,7 +25,8 @@ const Login = () => {
 
       toast.success(res.data.message)
       setFormData({ email: "", password: "" })
-      navigate("/dashboard")
+
+      navigate("/dashboard") // navigate
 
     } catch (error) {
       console.log(error.response.data.message);
