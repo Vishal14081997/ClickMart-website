@@ -1,4 +1,5 @@
 import User from "../models/User.js"
+import jwt from "jsonwebtoken"
 
 export const signUp = async (req, res) => {
     try {
@@ -37,13 +38,31 @@ export const login = async (req, res) => {
         if (user.password !== password) {
             return res.status(400).json({ message: "Invalid password" })
         }
+
+        const payload = {
+            userId: user._id,
+            full_name: user.full_name,
+            email: user.email,
+            userType: user.userType
+        }
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" })
+
         res.status(200).json({
             message: "login success",
-            data: user
+            data: { user, token }
         })
 
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message })
+    }
+}
+export const profileget = (req,res)=>{
+    try {
+        const getProfileuser = req.user
+        console.log("profile get user" , getProfileuser);
+        
+    } catch (error) {
+        console.log(error.message);
     }
 }
