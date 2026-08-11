@@ -4,6 +4,9 @@ import User from "../models/User.js"
 const verifyToken = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization
+        if (!authHeader) {
+            return res.status(401).json({ message: "Unauthorized" })
+        }
         // console.log(authHeader);
         const token = authHeader.split(" ")[1]
         // console.log("token:",token);
@@ -11,14 +14,12 @@ const verifyToken = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
         //   console.log(decoded);
 
-        const user = await User.findById(decoded.userId)
+        const user = await User.findById(decoded.userId).select("-password ")
         //   console.log(user);
         if (!user) {
             return res.status(401).json({ message: "User not found" })
         }
         req.user = user;
-        // req.userId =user._id 
-
         next();
 
     } catch (error) {
