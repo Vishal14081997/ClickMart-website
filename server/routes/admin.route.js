@@ -1,10 +1,12 @@
 import express from 'express'
-import { createCategory, getAllCategory } from '../controllers/admin.controller.js';
+import { createCategory, getAllCategory,imageupload } from '../controllers/admin.controller.js';
 import verifyToken from '../middleware/verify.middleware.js';
+import { upload } from '../middleware/upload.middleware.js';
 
 const router = express.Router();
 
 router.post("/create-category", verifyToken, createCategory)
 router.get("/get-all-category", verifyToken, getAllCategory)
+router.post("/image-upload", upload.single("img") , imageupload)
 
 export default router;

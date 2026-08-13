@@ -38,13 +38,26 @@ export const getAllCategory = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Get all category",
-            total:category.length,
+            total: category.length,
             data: category
         })
 
 
     } catch (error) {
         console.log("getAllCategory erorr", error.message);
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+export const imageupload = async (req, res) => {
+    try {
+        console.log(req.file);
+        res.send(req.file)
+
+    } catch (error) {
+        console.log(error.message);
         res.status(500).json({
             success: false,
             message: error.message
