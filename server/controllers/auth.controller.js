@@ -57,12 +57,4 @@ export const login = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
-export const profileget = (req,res)=>{
-    try {
-        const getProfileuser = req.user
-        console.log("profile get user" , getProfileuser);
-        
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+

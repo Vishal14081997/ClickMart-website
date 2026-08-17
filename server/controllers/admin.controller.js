@@ -14,7 +14,8 @@ export const createCategory = async (req, res) => {
         }
 
         const category = await Category.create({
-            CName, CDesc
+            CName, CDesc,
+            image_url: req.imageUrl
         })
 
         res.status(201).json({
