@@ -2,6 +2,7 @@ import React from 'react'
 import { Pencil ,Trash2 } from 'lucide-react'
 
 const CategoryCard = () => {
+    
     return (
         <>
             <div className="w-72 bg-white rounded-2xl overflow-hidden border">
@@ -16,10 +17,6 @@ const CategoryCard = () => {
                     <p className="text-gray-500 text-sm mt-1">
                         Comfortable running shoes.
                     </p>
-
-                    <h3 className="text-2xl font-bold text-primary mt-3">
-                        ₹2000
-                    </h3>
 
                     <div className="flex justify-end gap-3 ">
                         <button className="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200">

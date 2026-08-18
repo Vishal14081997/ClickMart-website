@@ -25,6 +25,7 @@ const Login = () => {
 
       toast.success(res.data.message)
       setFormData({ email: "", password: "" })
+      localStorage.setItem("token" ,res.data.data.token)
 
       navigate("/dashboard") // navigate
 
